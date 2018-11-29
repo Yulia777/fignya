@@ -1,0 +1,77 @@
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  div.area.screen-lg{
+    min-width: 100%;
+    .container{
+      width: 100%;
+    }
+    .node1{
+      display: none;
+    }
+
+    .hamburger1-menu{
+      &.is-collapsed{
+        .widget-menu{
+          display: none;
+        }
+      }
+    }
+
+    .mobile{
+      display: block !important;
+    }
+
+    .xs-hidden{
+      display: block !important;
+    }
+    .lg-screen{
+      display: block !important;
+    }
+    .desktop{
+      display: none !important;
+    }
+    .node146, .node192, .node240, .node300, .node351{
+      &>.wrapper1>.wrapper2{
+        padding-top: 20px;
+        padding-bottom: 27px;
+      }
+    }
+
+    .node398{
+      .bgimage{
+        height: 30px !important;
+        background-position: center center !important;
+      }
+    }
+
+    .macros-button .btn-out{
+      &.right{
+        text-align: center;
+      }
+      &.left{
+        text-align: center;
+      }
+    }
+
+    .node245{
+      .bgimage{
+        height: 140px!important;
+        background-position: center center !important;
+      }
+    }
+    #ymaps154223295671445032{
+      width: 100% !important;
+      .ymaps-2-1-69-map{
+        width: 100% !important;
+      }
+    }
+    @for $i from 1 through 300{
+      @if($i != 82 and $i != 31 and $i != 77 and $i != 78 and $i != 79 and $i != 80 and $i != 81){
+        #uid#{$i}{
+          padding: 15px 31px;
+          margin-bottom: 20px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
