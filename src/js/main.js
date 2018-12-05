@@ -43,7 +43,7 @@
     }).fail(error => console.log(error));
   }
   //Callback form
-  $('#uid7').click(function (event) {
+  $('#uid5').click(function (event) {
     event.preventDefault();
     
     const form = $('#callback-form'),
@@ -68,11 +68,11 @@
   });
   
   //Get tires
-  $('#uid20').click(function (event) {
+  $('#uid18').click(function (event) {
     event.preventDefault();
     
     const form = $('#get-tyres'),
-      COMMENT = 'ЗАПИСАТЬСЯ НА ШИНОМОНТАЖ В УДОБНОЕ ВРЕМЯ',
+      COMMENT = 'ПРОВЕРИТЬ НАЛИЧИЕ МЕСТ НА СКЛАДЕ',
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
@@ -92,21 +92,23 @@
     }
   })
   //Left widget form
-  $('#uid4').click(function (event) {
+  $('#uid2').click(function (event) {
     event.preventDefault();
     
     const form = $('#left-widget-form'),
-      COMMENT = 'Запись на шиномонтаж',
+      COMMENT = 'РАССЧИТАТЬ СТОИМОСТЬ',
+      diametr = form.find('select[name=diametr]'),
+      disk = form.find('select[name=disk]'),
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
       $.ajax({
         url: 'https://wilgood.ru/handler_for_partners/',
         type: 'POST',
-        data: `type_partner=${generateHash()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
+        data: `type_partner=${generateHash()}&diametr=${diametr.val()}&disk=${disk.val()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
       }).done(json => {
         if (json) {
-          sgSender({phone: phone.val()}, 'left-widget-get-tyres');
+            sgSender({phone: phone.val(), diametr: diametr.val(), disk: disk.val()}, 'left-widget-get-tyres');
           $('.area').click();
           invoice();
           console.log(json);
@@ -116,12 +118,12 @@
     }
   });
   
-  // Get tyres 3 screen
-  $('#uid25').click(function (event) {
+  // Get tyres 2 screen
+  $('#uid21').click(function (event) {
     event.preventDefault();
     
     const form = $('#second-get-tyres-form'),
-      COMMENT = 'Запись на шиномонтаж',
+      COMMENT = 'Сдать шины в ближайший автоцентр',
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
@@ -131,7 +133,7 @@
         data: `type_partner=${generateHash()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
       }).done(json => {
         if (json) {
-          sgSender({phone: phone.val()}, 'get-tyres');
+          sgSender({phone: phone.val()}, 'second-get-tyres-form');
           $('.area').click();
           invoice();
           console.log(json);
@@ -140,23 +142,22 @@
       }).fail(error => console.log(error));
     }
   });
-  //Check variants from
-  $('#uid30').click(function (event) {
+  //Забронировать место
+  $('#uid26').click(function (event) {
     event.preventDefault();
     
-    const form = $('#check-variants'),
-      COMMENT = 'Подбор дисков по марке авто',
-      car = form.find('select[name=car]'),
+    const form = $('#bronirovanie'),
+      COMMENT = 'ЗАБРОНИРОВАТЬ МЕСТО НА СКЛАДЕ',
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
       $.ajax({
         url: 'https://wilgood.ru/handler_for_partners/',
         type: 'POST',
-        data: `type_partner=${generateHash()}&brand=${car.val()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
+        data: `type_partner=${generateHash()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
       }).done(json => {
         if (json) {
-          sgSender({phone: phone.val(), car: car.val()}, 'check-variants');
+          sgSender({phone: phone.val()}, 'bronirovanie');
           $('.area').click();
           invoice();
           console.log(json);
@@ -165,12 +166,12 @@
       }).fail(error => console.log(error));
     }
   });
-  //Tire fitting
-  $('#uid40').click(function (event) {
+  //Оставить заявку на хранение
+  $('#uid39').click(function (event) {
     event.preventDefault();
     
     const form = $('#tire-fitting'),
-      COMMENT = 'Заявка на хранение шин',
+      COMMENT = 'ОСТАВИТЬ ЗАЯВКУ НА ХРАНЕНИЕ ШИН',
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
@@ -180,7 +181,7 @@
         data: `type_partner=${generateHash()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
       }).done(json => {
         if (json) {
-          sgSender({phone: phone.val()}, 'tire-fitting');
+          sgSender({phone: phone.val()}, 'hranenie-shin');
           $('.area').click();
           invoice();
           console.log(json);
@@ -189,35 +190,12 @@
       }).fail(error => console.log(error));
     }
   });
-  //Store amount
-  $('#uid50').click(function (event) {
+  //Записаться на шиномонтаж в ближайший автоцентр (табы)
+  $('#uid46').click(function (event) {
     event.preventDefault();
     
     const form = $('#store-amount'),
-      COMMENT = 'Запись на шиномонтаж',
-      phone = form.find('input[name=phone]');
-    
-    if (phone.val()) {
-      $.ajax({
-        url: 'https://wilgood.ru/handler_for_partners/',
-        type: 'POST',
-        data: `type_partner=${generateHash()}&comment=${COMMENT}&type_response=html&phone=${phone.val()}&unique_code=Agf0FDw6gkRuqsfOQB7cqK9k60qD17f`
-      }).done(json => {
-        if (json) {
-          sgSender({phone: phone.val()}, 'store-amount');
-          $('.area').click();
-          invoice();
-          console.log(json);
-          phone.val('');
-        }
-      }).fail(error => console.log(error));
-    }
-  });
-  $('#uid85').click(function (event) {
-    event.preventDefault();
-    
-    const form = $('#store-amount-two'),
-      COMMENT = 'Запись на шиномонтаж',
+      COMMENT = 'ЗАПИСАТЬСЯ НА ШИНОМОНТАЖ В БЛИЖАЙШИЙ АВТОЦЕНТР',
       phone = form.find('input[name=phone]');
     
     if (phone.val()) {
@@ -237,7 +215,7 @@
     }
   });
   //callback-bottom
-  $('#uid53').click(function (event) {
+  $('#uid52').click(function (event) {
     event.preventDefault();
     
     const form = $('#callback-bottom'),
